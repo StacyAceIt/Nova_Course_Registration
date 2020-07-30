@@ -30,22 +30,31 @@ public class registeration {
 	}
 
 	private static void registerForClasses(String[] args) {
-		System.setProperty("webdriver.chrome.driver", args[0]);
+		
+		MyWebdriver mywebdriver = new MyWebdriver();
+		System.setProperty("webdriver.chrome.driver", mywebdriver.getPath());
+		
 		 //https://stackoverflow.com/questions/50245718/invalid-port-exiting-org-openqa-selenium-os-osprocess-checkforerror-while-la
 		 WebDriver driver = new ChromeDriver(new ChromeDriverService.Builder().usingPort(65530).build());
 
 		 String novasis_login = new String();
+		 //https://adfs.villanova.edu/adfs/ls?SAMLRequest=fZFfb4IwFMXf9ylI34FSUEcjGDdjZuIiEdzD3gpU7QIt6y1kH38oGl2y%2BHj%2F%2Fe7JOdPZT11ZHdcglIyQ52BkcVmoUshDhHbZ0n5Gs%2FhpCqyuSEPnrTnKLf9uORhrDsC16e9elYS25jrluhMF323XEToa0wB13ZxJANVoVTqdqComVcccXrY0CHy3n9RMsgPX7umBm6YbZC16tpDMnAVdMazcwz%2BAU9utAFlLpQt%2BVhehPauAI2u1iBALRmQyFl889BnJg2LkiUOI%2FZKM9x4O834JEgYgOn47A2j5SoJh0kSIYIJtPLF9nBGP4pB6xBmFk09kJVoZVajqRcjBrFZLqhgIoJLVHKgpaDp%2FX1PiYJoPS0Dfsiyxk02aIevjajo5md7HIIEONj9mNZfHKB5SoWfF%2Bp7wGMCuuaH4ls7UvYfFl%2FJv4vEv&RelayState=%2Fc%2Fauth%2FSSB%3Fpkg%3Dbwskfreg.P_AltPin&SigAlg=http%3A%2F%2Fwww.w3.org%2F2000%2F09%2Fxmldsig%23rsa-sha1&Signature=CYE%2F3RluOKezwDO%2Bg3bAQMSKSVsdyEDKZ%2BqmX5G3mtPNs%2Bd3E%2B2WUF8pw74pCFdo1fR1TVFErk8zPAwFr7YpguPz1bb8DdVqeb3xW8AJIE3C2dKCfpkFsGfY5ce%2FTDVjguGIhLQ3R29R9qcM5v%2FoZOSpYOSJBx7pbfHk2l2AEzXW%2B7CvzhXmKwPp7Fe1pwzdjK0Es5%2FIVwc%2BZkIQaIlteVMQkW5lRjgEONko4MkAYvQ7TNiyOHZmmPoHLSREzIKopjW9u%2F%2BDAF61mDgS%2FnxkJ0e7w8gICJf%2BG4txWPiCFxuLDnSwzPYYYz8%2BpCV3xgsqIfIE%2FtMhivVVR7Znxsl7gQ%3D%3D
 		 novasis_login = "https://adfs.villanova.edu/adfs/ls?SAMLRequest=fZFLb4JAFIX3%2FRVk9jwcaYWJYGyNqYmNRLCL7ka4AgZm6NyB9OcXRaNNGpf39d2Tc6azn7oyOlBYShGQkeUQA0Qqs1LkAdklS9Mjs%2FBpiryuaMPmrS7EFr5bQG3MEUHp%2Fu5NCmxrUDGorkxht10HpNC6QWbbey4QZaNkZnVlVXEhO25B1jLXHdv9pOaC56Ds0wM7jjfEWPTsUnB9FnTF8OyA%2FwBObbtCYiylSuGsLiAHXiEQY7UICM996rrPR2cPxdF3x%2BmLe6AAXl54mU%2F7HYw4YtnB7QqxhZVAzYUOCHWoYzoTk%2FrJaMKoxxzPmtDxFzEiJbVMZfVaisGrVgkmOZbIBK8BmU5ZPP9YM2o5bD8sIXtPksiMNnFCjM%2Br5%2FTkeZ%2BCQDa4%2FJjVXB6TcAiFnRWre8JjAL%2FGRsJbOFP7HhZeyr%2BBh78%3D&RelayState=%2Fc%2Fauth%2FSSB%3Fpkg%3Dtwbkwbis.P_GenMenu%3Fname%3Dbmenu.P_MainMnu&SigAlg=http%3A%2F%2Fwww.w3.org%2F2000%2F09%2Fxmldsig%23rsa-sha1&Signature=PLioQAWxkYpcQGS9HJiFvTNfYtqu6V1t2W2X%2FSHuofRDDRxZ4z2vjKNany1WxHpgqa%2B0bjOdKGZNwi58X8OJeY4EMgvmNcaa7qmwRfQ3zgdMhL2IEyUOf2AR7E9lm5a4zXul2BvljkGCuOW2bEx95gkrmphDrsoXjwp0ImmAMJTBasHVWO0N7ou4mn2D0vbc%2BGD5MCUehjhmyY06zUUnx49vfrDS%2FywXxvhck6lCw0kwgG5XbdFVwlNApOkSEJ5eUdWgU7LK8qwrrXBlEB0JKrDBS%2B1YVngKBz%2FddiBB8K%2BTv0NVpbq9819xVQItX9TuSZTJfW69cLMBbiCB1grYaQ%3D%3D";
 		 driver.get(novasis_login);
 		 delay(3);
 		 //fill in Username and Password
+		 Login login = new Login();
+		 String myUsername = login.getUsername();
+		 String myPassword = login.getPassword();
+		 
 		 //https://www.guru99.com/accessing-forms-in-webdriver.html
 		 WebElement Username = driver.findElement(By.id("userNameInput"));
 		 //Change Username
-		 Username.sendKeys(args[1]);
+		 Username.sendKeys(myUsername);
 		 //Change Password
 		 WebElement Password = driver.findElement(By.id("passwordInput"));
-		 Password.sendKeys(args[2]);
+		 Password.sendKeys(myPassword);
+	
 		 
 		 WebElement login_novasis = driver.findElement(By.id("submitButton"));
 		 login_novasis.click();
@@ -68,12 +77,22 @@ public class registeration {
 		 Select TermOptions = new Select(driver.findElement(By.name("term_in")));
 		//term format: e.g. Fall 2020
 		 //command line: Fall\ 2020
-		 TermOptions.selectByVisibleText(args[3]);
+		 
+		 Term myTerm = new Term();
+		 TermOptions.selectByVisibleText(myTerm.getTerm());
 		 
 		 WebElement SubmitTerm = driver.findElement(By.cssSelector("input[type='submit'][value='Submit']"));
 		 SubmitTerm.submit();
 		 delay(3);
 		 
+		 classSearch(driver,args);
+		 
+		 
+		
+	}
+
+	private static void classSearch(WebDriver driver, String[] args) {
+		//after registering for a class, the program goes back here
 		 WebElement ClassSearch = driver.findElement(By.cssSelector("input[type='submit'][value='Class Search']"));
 		 ClassSearch.click();
 		 delay(3);
