@@ -1,7 +1,7 @@
 package course_registeration_Java;
 
 class PIN {
-	private final String value = "";
+	private final String value = "fa12345";
 	
 	PIN(){
 		

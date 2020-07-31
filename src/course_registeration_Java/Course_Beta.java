@@ -32,6 +32,7 @@ public class Course_Beta {
 		
 		
 	}
+	
 
 	private static void registerForClasses(String[] args) {
 		
@@ -44,25 +45,22 @@ public class Course_Beta {
 		 //file:// is the protocol to local html
 	      driver.get("file:///Users/stacyzhang/eclipse-workspace/course_registeration_Java/src/course_beta.html");
 	      
-		 
+	    //fill PIN if it's asking for a PIN
+		 List<WebElement> PinElement = driver.findElements(By.cssSelector("input[type='password']"));
 
+		 //check if there is a password field
+		 if (!PinElement.isEmpty()) {
+			 for (@SuppressWarnings("unused") WebElement pinField:PinElement){
+				 System.out.println("PIN is requested");
+				 FillPIN fillPin = new FillPIN(driver);
+			 }
+		 }else {
+			 System.out.println("PIN is not requested");
+		 }
+	
 		 driver.quit();
 	}
-
-//	private static void fillPin(WebDriver driver) {
-//		PIN pin = new PIN();
-//		String myPin = pin.getValue();
-//		WebElement PinField = driver.findElement(By.cssSelector("input[type='password']"));
-//		PinField.sendKeys(myPin);
-//		
-//		// if it's not this button <input type="submit" value="Go" />
-//		// hit submit
-//		 WebElement submit_pin = driver.findElement(By.cssSelector("input[type='submit'][value='Submit']"));
-//		 submit_pin.click();
-//		
-//		
-//	}
-
 	
+
 
 }
