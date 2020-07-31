@@ -1,4 +1,8 @@
 package course_registeration_Java;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -8,75 +12,53 @@ import org.openqa.selenium.support.ui.Select;
 
 
 public class registeration {
+	static int delay_count = 0;
 
 	public static void main(String[] args) throws InterruptedException{
 		
-		//https://stackoverflow.com/questions/11361332/how-to-call-a-method-on-specific-time-in-java
-		//schedule to call registerForClasses
-		
         long startTime = System.currentTimeMillis();
 
-        registerForClasses(args);
+        registerForClasses();
 
         long endTime = System.currentTimeMillis();
 
         long timeElapsed = endTime - startTime;
 
         System.out.println("Execution time in milliseconds: (with delay)" + timeElapsed);
-        
-        int delaySec = Delay.getDelayCount();
-        long delayMillisec = delaySec * 1000;
+
+        long delayMillisec = delay_count * 1000;
 		
         System.out.println("Execution time in milliseconds: (without delay)" + (timeElapsed - delayMillisec));
 		
 			
 	}
 
-	private static void registerForClasses(String[] args) {
+	private static void registerForClasses() {
 		
 		MyWebdriver mywebdriver = new MyWebdriver();
 		System.setProperty("webdriver.chrome.driver", mywebdriver.getPath());
+		WebDriver driver = new ChromeDriver(new ChromeDriverService.Builder().usingPort(65530).build());
 		
-		 //https://stackoverflow.com/questions/50245718/invalid-port-exiting-org-openqa-selenium-os-osprocess-checkforerror-while-la
-		 WebDriver driver = new ChromeDriver(new ChromeDriverService.Builder().usingPort(65530).build());
+		String novasis_login1 = "https://adfs.villanova.edu/adfs/ls?SAMLRequest=fZFLb8IwEITv%2FRWR73mHl0WCaBEqEhURCT30ZpJNsJTYqdeJ%2BvMbCAgqVRy93v1mNDNf%2FNSV0YFCLkVIXMshBohM5lyUITmka3NKFtHLHFldeQ1dtvok9vDdAmpjiQhK93dvUmBbg0pAdTyDw34bkpPWDVLbPjKBKBslc6vjVcWE7JgFeUuDwLf7n5oJVoKyzwJ2kuyIserZXDB9MXTDsLzAfwDnsV0hMdZSZXBxF5KCVQjE2KxCwgLuztgpy6EsM15wvxg5sykvS8gmk2DcL2HMEHkH9zPEFjYCNRM6JJ7jOaYzMX03dce9JB3NLH%2FkfREjVlLLTFavXAxhtUpQyZAjFawGpDqjyfJjSz3LocdhCel7msZmvEtSYnzeQvfOofc1CKRDzM9ZzVWYREMr9OJYPRKeA9itNxLd25nbj7Do%2BvzbePQL&RelayState=%2Fc%2Fauth%2FSSB%3Fpkg%3Dbwskfreg.P_AltPin&SigAlg=http%3A%2F%2Fwww.w3.org%2F2000%2F09%2Fxmldsig%23rsa-sha1&Signature=JXB%2Bj9z4keBBQSh8sXEFnBRHgMvnso1KDvbaGWu5ElePSDr57FbBMiikfNQ3Y0ZZIdpPx0Mt5N%2Bwrs%2F3dHGxTDiw7DIrQgQTsATdumQnkv7ITP%2ByF3%2BQBKqEMdNQZ%2FkkaraNV6%2F%2FXB%2BykQF9LGfgasA1okAXgTxC070MONXqysqQiLe6XzOHpRCmFg%2Bzxs8v8GXk8wKOrXx5w0zOjBrTNxn%2FHy2EpUFkeDRJWoXnd%2FF5Gzv54plYcXKaBs9Ihnp1xvjCqq65a9ZvMaH57D9Las%2Be9cNrxnf3cHKXpAHW9949kYL%2F3oXkkbQ9W6QfXQBtMoFbK8fgG5bC2lYje3Jd6Q%3D%3D";		 
+		String novasis_login2 = "https://adfs.villanova.edu/adfs/ls?SAMLRequest=fZHNbsIwEITvfQrL9%2FxHarBIEC1CRaIiakIPvTnJAkaJnXqdqI%2FfQEBQqeLo9e43o5np7KepSQ8ahZIx9WyXEpClqoTcx3SbL62IzpKnKfKm9ls278xBfsB3B2jIHBG0Ge5elcSuAZ2B7kUJ2491TA%2FGtMgcp%2BASUbVaVXYv6ppL1XMbqo6FYeAMPw2XfA%2FaOQk4WbahZDGwheTmbOiK4dUO%2FwGcxk6NlCyVLuHsLqY7XiNQslrElHtlNAnDQkAUBRPwfHCDojyKXREeC14MS5hyRNHD7Qyxg5VEw6WJqe%2F6ruU%2BW4GXexHzg0HVDjz3i5JUK6NKVb8IOYbVackUR4FM8gaQmZJl8%2Fc1822XFeMSsrc8T610k%2BWUfF5D90%2BhDzVIZGPMj1ntRZgmYyvs7FjfEx4D%2BLU3mtzamTr3sOTy%2FNt48gs%3D&RelayState=%2Fc%2Fauth%2FSSB%3Fpkg%3Dtwbkwbis.P_GenMenu%3Fname%3Dbmenu.P_MainMnu&SigAlg=http%3A%2F%2Fwww.w3.org%2F2000%2F09%2Fxmldsig%23rsa-sha1&Signature=Zxu82eA1MUb7Gfi8PQnv2dVFBze7i6I0Rrv%2BZ493RpaHJSJWx432a37f0mhCKsAdmv2HTqHaFNRsfOKlYARK%2BY4PPha65u9Lz%2Fh1IReanJ6pLTRw4FV0hiEhXpLbflHHeiwvSduBoOfOS70vTnJriUYVk%2B33cqvrIkvPvpBriQC%2Bx4P1tGDVG5vuqkYO2zWv1nA6Lb%2Bii74Rt%2B7AhrGSkvbjt4nQU4FSO6awYcdSMVtUnn6GtLFgr1%2FVBl5VGRXVllsRTIp8605GEE%2BVlwtiveTNLUpZ2InJyFrNTEXjjtIR95bUzok4Ccxj7cddXaesRYwS1ORNbDzhiU2AZcesCw%3D%3D";
 
-		 String novasis_login = new String();
-		 //https://adfs.villanova.edu/adfs/ls?SAMLRequest=fZFfb4IwFMXf9ylI34FSUEcjGDdjZuIiEdzD3gpU7QIt6y1kH38oGl2y%2BHj%2F%2Fe7JOdPZT11ZHdcglIyQ52BkcVmoUshDhHbZ0n5Gs%2FhpCqyuSEPnrTnKLf9uORhrDsC16e9elYS25jrluhMF323XEToa0wB13ZxJANVoVTqdqComVcccXrY0CHy3n9RMsgPX7umBm6YbZC16tpDMnAVdMazcwz%2BAU9utAFlLpQt%2BVhehPauAI2u1iBALRmQyFl889BnJg2LkiUOI%2FZKM9x4O834JEgYgOn47A2j5SoJh0kSIYIJtPLF9nBGP4pB6xBmFk09kJVoZVajqRcjBrFZLqhgIoJLVHKgpaDp%2FX1PiYJoPS0Dfsiyxk02aIevjajo5md7HIIEONj9mNZfHKB5SoWfF%2Bp7wGMCuuaH4ls7UvYfFl%2FJv4vEv&RelayState=%2Fc%2Fauth%2FSSB%3Fpkg%3Dbwskfreg.P_AltPin&SigAlg=http%3A%2F%2Fwww.w3.org%2F2000%2F09%2Fxmldsig%23rsa-sha1&Signature=CYE%2F3RluOKezwDO%2Bg3bAQMSKSVsdyEDKZ%2BqmX5G3mtPNs%2Bd3E%2B2WUF8pw74pCFdo1fR1TVFErk8zPAwFr7YpguPz1bb8DdVqeb3xW8AJIE3C2dKCfpkFsGfY5ce%2FTDVjguGIhLQ3R29R9qcM5v%2FoZOSpYOSJBx7pbfHk2l2AEzXW%2B7CvzhXmKwPp7Fe1pwzdjK0Es5%2FIVwc%2BZkIQaIlteVMQkW5lRjgEONko4MkAYvQ7TNiyOHZmmPoHLSREzIKopjW9u%2F%2BDAF61mDgS%2FnxkJ0e7w8gICJf%2BG4txWPiCFxuLDnSwzPYYYz8%2BpCV3xgsqIfIE%2FtMhivVVR7Znxsl7gQ%3D%3D
-		 novasis_login = "https://adfs.villanova.edu/adfs/ls?SAMLRequest=fZFLb4JAFIX3%2FRVk9jwcaYWJYGyNqYmNRLCL7ka4AgZm6NyB9OcXRaNNGpf39d2Tc6azn7oyOlBYShGQkeUQA0Qqs1LkAdklS9Mjs%2FBpiryuaMPmrS7EFr5bQG3MEUHp%2Fu5NCmxrUDGorkxht10HpNC6QWbbey4QZaNkZnVlVXEhO25B1jLXHdv9pOaC56Ds0wM7jjfEWPTsUnB9FnTF8OyA%2FwBObbtCYiylSuGsLiAHXiEQY7UICM996rrPR2cPxdF3x%2BmLe6AAXl54mU%2F7HYw4YtnB7QqxhZVAzYUOCHWoYzoTk%2FrJaMKoxxzPmtDxFzEiJbVMZfVaisGrVgkmOZbIBK8BmU5ZPP9YM2o5bD8sIXtPksiMNnFCjM%2Br5%2FTkeZ%2BCQDa4%2FJjVXB6TcAiFnRWre8JjAL%2FGRsJbOFP7HhZeyr%2BBh78%3D&RelayState=%2Fc%2Fauth%2FSSB%3Fpkg%3Dtwbkwbis.P_GenMenu%3Fname%3Dbmenu.P_MainMnu&SigAlg=http%3A%2F%2Fwww.w3.org%2F2000%2F09%2Fxmldsig%23rsa-sha1&Signature=PLioQAWxkYpcQGS9HJiFvTNfYtqu6V1t2W2X%2FSHuofRDDRxZ4z2vjKNany1WxHpgqa%2B0bjOdKGZNwi58X8OJeY4EMgvmNcaa7qmwRfQ3zgdMhL2IEyUOf2AR7E9lm5a4zXul2BvljkGCuOW2bEx95gkrmphDrsoXjwp0ImmAMJTBasHVWO0N7ou4mn2D0vbc%2BGD5MCUehjhmyY06zUUnx49vfrDS%2FywXxvhck6lCw0kwgG5XbdFVwlNApOkSEJ5eUdWgU7LK8qwrrXBlEB0JKrDBS%2B1YVngKBz%2FddiBB8K%2BTv0NVpbq9819xVQItX9TuSZTJfW69cLMBbiCB1grYaQ%3D%3D";
-		 driver.get(novasis_login);
-	
-		 Delay.delay(3);
+		int code1 = checkConnection(novasis_login1);
+		int code2 = checkConnection(novasis_login2);
+		
+		if(code1 == 200) {
+			loginShortcut(novasis_login1, driver);
+			System.out.println("login shortcut");
+		}else if(code2 == 200) {
+			loginDetour(novasis_login2, driver);
+			System.out.println("login detour");
+		}else {
+			//If none of the two links are accessible, wait and try again
+			delay(30);
+			registerForClasses();
+			
+		}
+		
 		 		 
-		 //fill in Username and Password
-		 Login login = new Login();
-		 String myUsername = login.getUsername();
-		 String myPassword = login.getPassword();
-		 
-		 //https://www.guru99.com/accessing-forms-in-webdriver.html
-		 WebElement Username = driver.findElement(By.id("userNameInput"));
-		 Username.sendKeys(myUsername);
-		 WebElement Password = driver.findElement(By.id("passwordInput"));
-		 Password.sendKeys(myPassword);
-		 
-		 WebElement login_novasis = driver.findElement(By.id("submitButton"));
-		 login_novasis.click();
-		 Delay.delay(3);
-		 
-		 //https://novasis.villanova.edu/pls/bannerprd/twbkwbis.P_GenMenu?name=bmenu.P_StuMainMnu
-		 WebElement StudentFinancialAid = driver.findElement(By.linkText("Student & Financial Aid"));
-		 StudentFinancialAid.click();
-		 Delay.delay(3);
-		 
-		 WebElement Registration = driver.findElement(By.linkText("Registration"));
-		 Registration.click();
-		 Delay.delay(3);
-		 
-		 WebElement LoginToRegistration = driver.findElement(By.linkText("Login to Registration"));
-		 LoginToRegistration.click();
-		 Delay.delay(3);
-		 
-		 //select from dropdown list
-		 //https://www.guru99.com/select-option-dropdown-selenium-webdriver.html		 
 		 Select TermOptions = new Select(driver.findElement(By.name("term_in")));
 		
 		 Term myTerm = new Term();
@@ -84,42 +66,93 @@ public class registeration {
 		 
 		 WebElement SubmitTerm = driver.findElement(By.cssSelector("input[type='submit'][value='Submit']"));
 		 SubmitTerm.submit();
-		 Delay.delay(3);
 		 
-		 //fill PIN if it's asking for a PIN
-		 List<WebElement> PinElement = driver.findElements(By.cssSelector("input[type='password']"));
-
-		 //check if there is a password field
-		 if (!PinElement.isEmpty()) {
-			 for (@SuppressWarnings("unused") WebElement pinField:PinElement){
-				 System.out.println("PIN is requested");
-				 //fillPin(driver);
-				 FillPIN.fillPin(driver);
-			 }
-		 }else {
-			 System.out.println("PIN is not requested");
-		 }
+		 checkPIN(driver);
+	
 		 		 		 
-		 //classSearch(driver,args);
+		 //classSearch(driver);
 		 		
+}
+
+
+
+
+private static int checkConnection(String myURL) {
+	int code = 0;
+	try {
+		 URL url = new URL(myURL);
+		 HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+		 connection.setRequestMethod("GET");
+		 connection.connect();
+		 code = connection.getResponseCode();
+		 
+	} catch (Exception e) {
+
+		e.printStackTrace();
+	}
+		return code;
+}
+
+private static void loginDetour(String novasis_login, WebDriver driver) {
+	 driver.get(novasis_login);
+
+	 Login login = new Login();
+	 String myUsername = login.getUsername();
+	 String myPassword = login.getPassword();
+	 
+	 //https://www.guru99.com/accessing-forms-in-webdriver.html
+	 WebElement Username = driver.findElement(By.id("userNameInput"));
+	 Username.sendKeys(myUsername);
+	 WebElement Password = driver.findElement(By.id("passwordInput"));
+	 Password.sendKeys(myPassword);
+	 
+	 WebElement login_novasis = driver.findElement(By.id("submitButton"));
+	 login_novasis.click();
+
+	 WebElement StudentFinancialAid = driver.findElement(By.linkText("Student & Financial Aid"));
+	 StudentFinancialAid.click();
+
+	 WebElement Registration = driver.findElement(By.linkText("Registration"));
+	 Registration.click();
+
+	 WebElement LoginToRegistration = driver.findElement(By.linkText("Login to Registration"));
+	 LoginToRegistration.click();
+		
 	}
 
+private static void loginShortcut(String novasis_login, WebDriver driver) {
+	 driver.get(novasis_login);
 
-//	private static void classSearch(WebDriver driver, String[] args) {
+	 Login login = new Login();
+	 String myUsername = login.getUsername();
+	 String myPassword = login.getPassword();
+	 
+	 //https://www.guru99.com/accessing-forms-in-webdriver.html
+	 WebElement Username = driver.findElement(By.id("userNameInput"));
+	 Username.sendKeys(myUsername);
+	 WebElement Password = driver.findElement(By.id("passwordInput"));
+	 Password.sendKeys(myPassword);
+	 
+	 WebElement login_novasis = driver.findElement(By.id("submitButton"));
+	 login_novasis.click();
+		
+	}
+
+	//	private static void classSearch(WebDriver driver, String[] args) {
 //		//after registering for a class, the program goes back here
 //		 WebElement ClassSearch = driver.findElement(By.cssSelector("input[type='submit'][value='Class Search']"));
 //		 ClassSearch.click();
-//		 Delay delay6 = new Delay(3);
+//		 Delay delay6 = new //delay(3);
 //		 
 //		 Select DepartmentOptions = new Select(driver.findElement(By.cssSelector("select[name='sel_subj']")));
 //		//term format: e.g. Computer Science
 //		 //command line: Computer\ Science
 //		 DepartmentOptions.selectByVisibleText("Computer Science");
-//		 Delay delay7 = new Delay(3);
+//		 Delay delay7 = new //delay(3);
 //		 
 //		 WebElement SubmitDepartment = driver.findElement(By.cssSelector("input[type='submit'][value='Course Search']"));
 //		 SubmitDepartment.click();
-//		 Delay delay8 = new Delay(3);
+//		 Delay delay8 = new //delay(3);
 //		
 //		 List<WebElement> CourseList = driver.findElements(By.cssSelector("input[name=\"SEL_CRSE\"]"));
 //		 List<WebElement> SubmitList = driver.findElements(By.cssSelector("input[NAME=\"SUB_BTN\"][VALUE=\"View Sections\"]"));
@@ -163,6 +196,51 @@ public class registeration {
 //		 //driver.quit();
 //		
 //	}
+
+private static void checkPIN(WebDriver driver) {
+	 
+	 //fill PIN if it's asking for a PIN
+	 List<WebElement> PinElement = driver.findElements(By.cssSelector("input[type='password']"));
+
+	 //check if there is a password field
+	 if (!PinElement.isEmpty()) {
+		 for (@SuppressWarnings("unused") WebElement pinField:PinElement){
+			 System.out.println("PIN is requested");
+			 //fillPin(driver);
+			 fillPin(driver);
+		 }
+	 }else {
+		 System.out.println("PIN is not requested");
+	 }
+		
+}
+private static void fillPin(WebDriver driver) {
+		PIN pin = new PIN();
+		String myPin = pin.getValue();
+		
+		//delay(2);
+		WebElement PinField = driver.findElement(By.xpath("//input[translate(@type,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz')"
+		 		+ " = 'password']"));
+		PinField.sendKeys(myPin);
+		//delay(2);
+		
+		// if it's not this button <input type="submit" value="Go" />
+		// hit submit
+		 WebElement SubmitButton = driver.findElement(By.xpath("//input[translate(@type,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz')"
+		 		+ " = 'submit' and not(@value='Go')]"));
+		 //delay(2);
+		 SubmitButton.click();
+}
+	
+private static void delay(int num){
+		
+		try {
+			TimeUnit.SECONDS.sleep(num);
+			delay_count += num;
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+}
 
 
 }
