@@ -5,13 +5,15 @@
 3. For MacOS, 
    xattr -d com.apple.quarantine chromedriver
 4. comment out delay() method when registering for classes
-5. command line arguments: 
-    1) args[0] path to webdriver
-    2) args[1] username
-    3) args[2] password 
-    4) args[3] term e.g. Fall 2020 (Fall\ 2020)
-    5) args[4] course number e.g. 8566 
-    6) args[5] CRN (Course Reference Number) e.g. 22723
+5. variables needed to be set up before registration:
+
+    1) MyWebdriver: set absolute path to webdriver
+    2) Login: set username
+    3) Login: set password 
+    4) Term: set term e.g. Fall 2020
+    5) Course: set course number e.g. 8566 
+    6) Course: set CRN (Course Reference Number) e.g. 22723
+    7) Course: set department e.g. CSC
 
 Example course: CSC 8566 - 001 Internet of Things CRN: 22723
 
