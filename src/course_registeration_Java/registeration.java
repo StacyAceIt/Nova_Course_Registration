@@ -1,5 +1,7 @@
 package course_registeration_Java;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.*;
 import org.openqa.selenium.support.ui.Select;
@@ -7,12 +9,26 @@ import org.openqa.selenium.support.ui.Select;
 
 public class registeration {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException{
 		
 		//https://stackoverflow.com/questions/11361332/how-to-call-a-method-on-specific-time-in-java
 		//schedule to call registerForClasses
 		
-		registerForClasses(args);
+        long startTime = System.currentTimeMillis();
+
+        registerForClasses(args);
+
+        long endTime = System.currentTimeMillis();
+
+        long timeElapsed = endTime - startTime;
+
+        System.out.println("Execution time in milliseconds: (with delay)" + timeElapsed);
+        
+        int delaySec = Delay.getDelayCount();
+        long delayMillisec = delaySec * 1000;
+		
+        System.out.println("Execution time in milliseconds: (without delay)" + (timeElapsed - delayMillisec));
+		
 			
 	}
 
@@ -30,6 +46,7 @@ public class registeration {
 		 driver.get(novasis_login);
 	
 		 Delay.delay(3);
+		 		 
 		 //fill in Username and Password
 		 Login login = new Login();
 		 String myUsername = login.getUsername();
@@ -40,11 +57,11 @@ public class registeration {
 		 Username.sendKeys(myUsername);
 		 WebElement Password = driver.findElement(By.id("passwordInput"));
 		 Password.sendKeys(myPassword);
-	
 		 
 		 WebElement login_novasis = driver.findElement(By.id("submitButton"));
 		 login_novasis.click();
 		 Delay.delay(3);
+		 
 		 //https://novasis.villanova.edu/pls/bannerprd/twbkwbis.P_GenMenu?name=bmenu.P_StuMainMnu
 		 WebElement StudentFinancialAid = driver.findElement(By.linkText("Student & Financial Aid"));
 		 StudentFinancialAid.click();
@@ -82,8 +99,7 @@ public class registeration {
 		 }else {
 			 System.out.println("PIN is not requested");
 		 }
-		 
-		 		 
+		 		 		 
 		 //classSearch(driver,args);
 		 		
 	}
