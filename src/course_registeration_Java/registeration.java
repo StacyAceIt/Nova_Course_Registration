@@ -49,9 +49,7 @@ public class registeration {
 		 
 		 //https://www.guru99.com/accessing-forms-in-webdriver.html
 		 WebElement Username = driver.findElement(By.id("userNameInput"));
-		 //Change Username
 		 Username.sendKeys(myUsername);
-		 //Change Password
 		 WebElement Password = driver.findElement(By.id("passwordInput"));
 		 Password.sendKeys(myPassword);
 	
@@ -75,9 +73,7 @@ public class registeration {
 		 //select from dropdown list
 		 //https://www.guru99.com/select-option-dropdown-selenium-webdriver.html		 
 		 Select TermOptions = new Select(driver.findElement(By.name("term_in")));
-		//term format: e.g. Fall 2020
-		 //command line: Fall\ 2020
-		 
+		
 		 Term myTerm = new Term();
 		 TermOptions.selectByVisibleText(myTerm.getTerm());
 		 
@@ -85,9 +81,33 @@ public class registeration {
 		 SubmitTerm.submit();
 		 delay(3);
 		 
-		 classSearch(driver,args);
+		 //fill PIN if it's asking for a PIN
+		 List<WebElement> PinElement = driver.findElements(By.cssSelector("input[type='password']"));
+		 if (!PinElement.isEmpty()) {
+			 for (WebElement pinField:PinElement){
+				 fillPin(driver);
+			 }
+		 }else {
+			 System.out.println("PIN is not requested");
+		 }
+		 
+		 //classSearch(driver,args);
 		 
 		 
+		
+	}
+
+	private static void fillPin(WebDriver driver) {
+		PIN pin = new PIN();
+		String myPin = pin.getValue();
+		WebElement PinField = driver.findElement(By.cssSelector("input[type='password']"));
+		PinField.sendKeys(myPin);
+		
+		// if it's not this button <input type="submit" value="Go" />
+		// hit submit
+		 WebElement submit_pin = driver.findElement(By.cssSelector("input[type='submit'][value='Submit']"));
+		 submit_pin.click();
+		
 		
 	}
 

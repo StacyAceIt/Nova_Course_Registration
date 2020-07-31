@@ -1,20 +1,20 @@
 package course_registeration_Java;
 
 public class Course {
-	private String name = "";
-	private String number = "";
+	private String department = "";
+	private String courseNumber = "";
 	private String CRN = "";
 	
 	Course(){
 		
 	}
 	
-	String getName() {
-		return this.name;
+	String getDepartment() {
+		return this.department;
 	}
 	
-	String getNumber() {
-		return this.number;
+	String getCourseNumber() {
+		return this.courseNumber;
 	}
 	
 	String getCRN() {
