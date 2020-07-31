@@ -2,3 +2,4 @@ bin/
 chromedriver
 src/course_registration_Java/Course_Beta.java
 src/course_beta.html
+.DS_Store
