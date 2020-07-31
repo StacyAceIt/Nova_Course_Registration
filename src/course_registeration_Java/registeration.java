@@ -83,13 +83,19 @@ public class registeration {
 		 
 		 //fill PIN if it's asking for a PIN
 		 List<WebElement> PinElement = driver.findElements(By.cssSelector("input[type='password']"));
+
+		 //check if there is a password field
 		 if (!PinElement.isEmpty()) {
-			 for (WebElement pinField:PinElement){
+			 for (@SuppressWarnings("unused") WebElement pinField:PinElement){
+				 System.out.println("PIN is requested");
 				 fillPin(driver);
 			 }
 		 }else {
 			 System.out.println("PIN is not requested");
 		 }
+		 
+		 
+		 
 		 
 		 //classSearch(driver,args);
 		 
@@ -105,9 +111,10 @@ public class registeration {
 		
 		// if it's not this button <input type="submit" value="Go" />
 		// hit submit
-		 WebElement submit_pin = driver.findElement(By.cssSelector("input[type='submit'][value='Submit']"));
-		 submit_pin.click();
-		
+		 WebElement SubmitButton = driver.findElement(By.xpath("//input[translate(@type,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz')"
+		 		+ " = 'submit' and not(@value='Go')]"));
+		 SubmitButton.click();
+		 	
 		
 	}
 
