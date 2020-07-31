@@ -8,7 +8,9 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.*;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 public class registeration {
@@ -42,8 +44,8 @@ public class registeration {
 		String novasis_login1 = "https://adfs.villanova.edu/adfs/ls?SAMLRequest=fZFLb8IwEITv%2FRWR73mHl0WCaBEqEhURCT30ZpJNsJTYqdeJ%2BvMbCAgqVRy93v1mNDNf%2FNSV0YFCLkVIXMshBohM5lyUITmka3NKFtHLHFldeQ1dtvok9vDdAmpjiQhK93dvUmBbg0pAdTyDw34bkpPWDVLbPjKBKBslc6vjVcWE7JgFeUuDwLf7n5oJVoKyzwJ2kuyIserZXDB9MXTDsLzAfwDnsV0hMdZSZXBxF5KCVQjE2KxCwgLuztgpy6EsM15wvxg5sykvS8gmk2DcL2HMEHkH9zPEFjYCNRM6JJ7jOaYzMX03dce9JB3NLH%2FkfREjVlLLTFavXAxhtUpQyZAjFawGpDqjyfJjSz3LocdhCel7msZmvEtSYnzeQvfOofc1CKRDzM9ZzVWYREMr9OJYPRKeA9itNxLd25nbj7Do%2BvzbePQL&RelayState=%2Fc%2Fauth%2FSSB%3Fpkg%3Dbwskfreg.P_AltPin&SigAlg=http%3A%2F%2Fwww.w3.org%2F2000%2F09%2Fxmldsig%23rsa-sha1&Signature=JXB%2Bj9z4keBBQSh8sXEFnBRHgMvnso1KDvbaGWu5ElePSDr57FbBMiikfNQ3Y0ZZIdpPx0Mt5N%2Bwrs%2F3dHGxTDiw7DIrQgQTsATdumQnkv7ITP%2ByF3%2BQBKqEMdNQZ%2FkkaraNV6%2F%2FXB%2BykQF9LGfgasA1okAXgTxC070MONXqysqQiLe6XzOHpRCmFg%2Bzxs8v8GXk8wKOrXx5w0zOjBrTNxn%2FHy2EpUFkeDRJWoXnd%2FF5Gzv54plYcXKaBs9Ihnp1xvjCqq65a9ZvMaH57D9Las%2Be9cNrxnf3cHKXpAHW9949kYL%2F3oXkkbQ9W6QfXQBtMoFbK8fgG5bC2lYje3Jd6Q%3D%3D";		 
 		String novasis_login2 = "https://adfs.villanova.edu/adfs/ls?SAMLRequest=fZHNbsIwEITvfQrL9%2FxHarBIEC1CRaIiakIPvTnJAkaJnXqdqI%2FfQEBQqeLo9e43o5np7KepSQ8ahZIx9WyXEpClqoTcx3SbL62IzpKnKfKm9ls278xBfsB3B2jIHBG0Ge5elcSuAZ2B7kUJ2491TA%2FGtMgcp%2BASUbVaVXYv6ppL1XMbqo6FYeAMPw2XfA%2FaOQk4WbahZDGwheTmbOiK4dUO%2FwGcxk6NlCyVLuHsLqY7XiNQslrElHtlNAnDQkAUBRPwfHCDojyKXREeC14MS5hyRNHD7Qyxg5VEw6WJqe%2F6ruU%2BW4GXexHzg0HVDjz3i5JUK6NKVb8IOYbVackUR4FM8gaQmZJl8%2Fc1822XFeMSsrc8T610k%2BWUfF5D90%2BhDzVIZGPMj1ntRZgmYyvs7FjfEx4D%2BLU3mtzamTr3sOTy%2FNt48gs%3D&RelayState=%2Fc%2Fauth%2FSSB%3Fpkg%3Dtwbkwbis.P_GenMenu%3Fname%3Dbmenu.P_MainMnu&SigAlg=http%3A%2F%2Fwww.w3.org%2F2000%2F09%2Fxmldsig%23rsa-sha1&Signature=Zxu82eA1MUb7Gfi8PQnv2dVFBze7i6I0Rrv%2BZ493RpaHJSJWx432a37f0mhCKsAdmv2HTqHaFNRsfOKlYARK%2BY4PPha65u9Lz%2Fh1IReanJ6pLTRw4FV0hiEhXpLbflHHeiwvSduBoOfOS70vTnJriUYVk%2B33cqvrIkvPvpBriQC%2Bx4P1tGDVG5vuqkYO2zWv1nA6Lb%2Bii74Rt%2B7AhrGSkvbjt4nQU4FSO6awYcdSMVtUnn6GtLFgr1%2FVBl5VGRXVllsRTIp8605GEE%2BVlwtiveTNLUpZ2InJyFrNTEXjjtIR95bUzok4Ccxj7cddXaesRYwS1ORNbDzhiU2AZcesCw%3D%3D";
 
-		int code1 = checkConnection(novasis_login1);
-		int code2 = checkConnection(novasis_login2);
+		int code1 = getResponseCode(novasis_login1);
+		int code2 = getResponseCode(novasis_login2);
 		
 		if(code1 == 200) {
 			loginShortcut(novasis_login1, driver);
@@ -55,21 +57,10 @@ public class registeration {
 			//If none of the two links are accessible, wait and try again
 			delay(30);
 			registerForClasses();
+			return;
 			
 		}
-		
-		 		 
-		 Select TermOptions = new Select(driver.findElement(By.name("term_in")));
-		
-		 Term myTerm = new Term();
-		 TermOptions.selectByVisibleText(myTerm.getTerm());
-		 
-		 WebElement SubmitTerm = driver.findElement(By.cssSelector("input[type='submit'][value='Submit']"));
-		 SubmitTerm.submit();
-		 
-		 checkPIN(driver);
-	
-		 		 		 
+				 		 		 		 		 
 		 //classSearch(driver);
 		 		
 }
@@ -77,7 +68,7 @@ public class registeration {
 
 
 
-private static int checkConnection(String myURL) {
+private static int getResponseCode(String myURL) {
 	int code = 0;
 	try {
 		 URL url = new URL(myURL);
@@ -108,17 +99,70 @@ private static void loginDetour(String novasis_login, WebDriver driver) {
 	 
 	 WebElement login_novasis = driver.findElement(By.id("submitButton"));
 	 login_novasis.click();
+	 
+	//checking connection after clicking button
+//	 String URL_After_login_novasis = driver.getCurrentUrl();
+//	 int code_login_novasis = getResponseCode(URL_After_login_novasis);
+//	 if (code_login_novasis != 200) {
+//		 registerForClasses();
+//		 return;
+//	 }
+//	
 
 	 WebElement StudentFinancialAid = driver.findElement(By.linkText("Student & Financial Aid"));
 	 StudentFinancialAid.click();
+	 
+	//checking connection after clicking button
+//		 String URL_After_StudentFinancialAids = driver.getCurrentUrl();
+//		 int code_StudentFinancialAids = getResponseCode(URL_After_StudentFinancialAids);
+//		 if (code_StudentFinancialAids != 200) {
+//			 registerForClasses();
+//			 return;
+//		 }
 
 	 WebElement Registration = driver.findElement(By.linkText("Registration"));
 	 Registration.click();
+	 
+	//checking connection after clicking button
+//		 String URL_After_Registration = driver.getCurrentUrl();
+//		 int code_After_Registration= getResponseCode(URL_After_Registration);
+//		 if (code_After_Registration != 200) {
+//			 registerForClasses();
+//			 return;
+//		 }
 
 	 WebElement LoginToRegistration = driver.findElement(By.linkText("Login to Registration"));
 	 LoginToRegistration.click();
+	 
+	//checking connection after clicking button
+//		 String URL_After_LoginToRegistration = driver.getCurrentUrl();
+//		 int code_LoginToRegistration = getResponseCode(URL_After_LoginToRegistration);
+//		 if (code_LoginToRegistration != 200) {
+//			 registerForClasses();
+//			 return;
+//		 }
+	 
+	 Select TermOptions = new Select(driver.findElement(By.name("term_in")));
+		
+	 Term myTerm = new Term();
+	 TermOptions.selectByVisibleText(myTerm.getTerm());
+	 
+	 WebElement SubmitTerm = driver.findElement(By.cssSelector("input[type='submit'][value='Submit']"));
+	 SubmitTerm.submit();
+	 
+	//checking connection after clicking button
+//		 String URL_After_SubmitTerm = driver.getCurrentUrl();
+//		 int code_SubmitTerm = getResponseCode(URL_After_SubmitTerm);
+//		 if (code_SubmitTerm != 200) {
+//			 registerForClasses();
+//			 return;
+//		 }
+	 
+	 checkPIN(driver);
+
 		
 	}
+
 
 private static void loginShortcut(String novasis_login, WebDriver driver) {
 	 driver.get(novasis_login);
@@ -135,6 +179,33 @@ private static void loginShortcut(String novasis_login, WebDriver driver) {
 	 
 	 WebElement login_novasis = driver.findElement(By.id("submitButton"));
 	 login_novasis.click();
+	 
+	 //checking connection after clicking button
+//	 String URL_After_Login_Novasis = driver.getCurrentUrl();
+//	 int code_Login_Novasis = getResponseCode(URL_After_Login_Novasis);
+//	 if (code_Login_Novasis != 200) {
+//		 registerForClasses();
+//		 return;
+//	 }
+	 
+	 Select TermOptions = new Select(driver.findElement(By.name("term_in")));
+		
+	 Term myTerm = new Term();
+	 TermOptions.selectByVisibleText(myTerm.getTerm());
+	 
+	 WebElement SubmitTerm = driver.findElement(By.cssSelector("input[type='submit'][value='Submit']"));
+	 SubmitTerm.submit();
+	 
+	//checking connection after clicking button
+//		 String URL_After_Submit_Term = driver.getCurrentUrl();
+//		 int code_Submit_Term = getResponseCode(URL_After_Submit_Term);
+//		 if (code_Submit_Term != 200) {
+//			 registerForClasses();
+//			 return;
+//		 }
+	 
+	 checkPIN(driver);
+
 		
 	}
 
