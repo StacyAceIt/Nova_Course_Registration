@@ -4,10 +4,12 @@ import java.util.concurrent.TimeUnit;
 
 public class Delay {
 	
-	public int num;
+	Delay(){
+		
+	}
 	
-	Delay(int _num){
-		this.num = _num;
+	public static void delay(int num){
+
 		try {
 			TimeUnit.SECONDS.sleep(num);
 		} catch (InterruptedException e) {
