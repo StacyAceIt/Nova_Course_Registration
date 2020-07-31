@@ -1,7 +1,6 @@
 # Nova_Course_Registration
 
 1. download Selenium Chrome webdriver from https://chromedriver.chromium.org/downloads
-2. download Selenium Client & WebDriver Language Bindings https://www.selenium.dev/downloads/ and add jars to Perperties --> java build path --> Libraries --> Add external jars
 3. For MacOS, 
    xattr -d com.apple.quarantine chromedriver
 4. comment out delay() method when registering for classes
