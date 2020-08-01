@@ -10,11 +10,15 @@
     2) Login: set username
     3) Login: set password 
     4) Term: set term e.g. Fall 2020
-    5) Course: set course number e.g. 8566 
-    6) Course: set CRN (Course Reference Number) e.g. 22723
-    7) Course: set department e.g. CSC
+    5) Registration (Main Class) classSearch method: set course number e.g. 8566 
+    6) Registration (Main Class) classSearch method: set CRN (Course Reference Number) e.g. 22723
+    7) Registration (Main Class) classSearch method: set department e.g. CSC
 
 Example course: CSC 8566 - 001 Internet of Things CRN: 22723
+
+Memo: What if the course has been selected or registration status is closed?
+      The program won't throw an error, it will hit Register button
+      but nothing will be registered since there is no checkbox.
 
 6. check course catalog to get course number and CRN before registration
    https://novasis.villanova.edu/pls/bannerprd/bvckschd.p_disp_dyn_sched
