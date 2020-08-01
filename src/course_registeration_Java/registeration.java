@@ -3,6 +3,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -48,11 +49,13 @@ public class registeration {
 		int code2 = getResponseCode(novasis_login2);
 		
 		if(code1 == 200) {
-			loginShortcut(novasis_login1, driver);
 			System.out.println("login shortcut");
+			loginShortcut(novasis_login1, driver);
+			
 		}else if(code2 == 200) {
-			loginDetour(novasis_login2, driver);
 			System.out.println("login detour");
+			loginDetour(novasis_login2, driver);
+			
 		}else {
 			//If none of the two links are accessible, wait and try again
 			delay(30);
@@ -60,8 +63,7 @@ public class registeration {
 			return;
 			
 		}
-				 		 		 		 		 
-		 //classSearch(driver);
+
 		 		
 }
 
@@ -101,13 +103,13 @@ private static void loginDetour(String novasis_login, WebDriver driver) {
 	 login_novasis.click();
 	 
 	//checking connection after clicking button
-//	 String URL_After_login_novasis = driver.getCurrentUrl();
-//	 int code_login_novasis = getResponseCode(URL_After_login_novasis);
-//	 if (code_login_novasis != 200) {
-//		 registerForClasses();
-//		 return;
-//	 }
-//	
+	 String URL_After_login_novasis = driver.getCurrentUrl();
+	 int code_login_novasis = getResponseCode(URL_After_login_novasis);
+	 if (code_login_novasis != 200) {
+		 registerForClasses();
+		 return;
+	 }
+	
 
 	 WebElement StudentFinancialAid = driver.findElement(By.linkText("Student & Financial Aid"));
 	 StudentFinancialAid.click();
@@ -159,7 +161,8 @@ private static void loginDetour(String novasis_login, WebDriver driver) {
 //		 }
 	 
 	 checkPIN(driver);
-
+		 
+	 classSearch(driver);
 		
 	}
 
@@ -181,12 +184,12 @@ private static void loginShortcut(String novasis_login, WebDriver driver) {
 	 login_novasis.click();
 	 
 	 //checking connection after clicking button
-//	 String URL_After_Login_Novasis = driver.getCurrentUrl();
-//	 int code_Login_Novasis = getResponseCode(URL_After_Login_Novasis);
-//	 if (code_Login_Novasis != 200) {
-//		 registerForClasses();
-//		 return;
-//	 }
+	 String URL_After_Login_Novasis = driver.getCurrentUrl();
+	 int code_Login_Novasis = getResponseCode(URL_After_Login_Novasis);
+	 if (code_Login_Novasis != 200) {
+		 registerForClasses();
+		 return;
+	 }
 	 
 	 Select TermOptions = new Select(driver.findElement(By.name("term_in")));
 		
@@ -205,68 +208,109 @@ private static void loginShortcut(String novasis_login, WebDriver driver) {
 //		 }
 	 
 	 checkPIN(driver);
-
+		 
+	 classSearch(driver);
 		
-	}
+}
 
-	//	private static void classSearch(WebDriver driver, String[] args) {
-//		//after registering for a class, the program goes back here
-//		 WebElement ClassSearch = driver.findElement(By.cssSelector("input[type='submit'][value='Class Search']"));
-//		 ClassSearch.click();
-//		 Delay delay6 = new //delay(3);
-//		 
-//		 Select DepartmentOptions = new Select(driver.findElement(By.cssSelector("select[name='sel_subj']")));
-//		//term format: e.g. Computer Science
-//		 //command line: Computer\ Science
-//		 DepartmentOptions.selectByVisibleText("Computer Science");
-//		 Delay delay7 = new //delay(3);
-//		 
-//		 WebElement SubmitDepartment = driver.findElement(By.cssSelector("input[type='submit'][value='Course Search']"));
-//		 SubmitDepartment.click();
-//		 Delay delay8 = new //delay(3);
-//		
-//		 List<WebElement> CourseList = driver.findElements(By.cssSelector("input[name=\"SEL_CRSE\"]"));
-//		 List<WebElement> SubmitList = driver.findElements(By.cssSelector("input[NAME=\"SUB_BTN\"][VALUE=\"View Sections\"]"));
-//		 
-//		 int index = 0;
-//		 for(WebElement course:CourseList) {		 		
-//		 		String courseNumber = course.getAttribute("value");
-//		 		if (!courseNumber.isEmpty() ) {
-//			 		//System.out.println(courseNumber);
-//			 		//course number: args[4]  
-//			 		if (courseNumber.compareTo(args[4]) == 0) {
-//			 			System.out.println("course found");
-//			 			SubmitList.get(index).click();
-//			 			break;
-//			 		};
-//			 		index++;
-//		 		}	 				 		
-//		 }
-//		 
-//		 //When session number doesn't exist, it gives all the input tags with checkbox and ignores contains. Don't use it cuz of the wrong output
-//		 //List<WebElement> SessionList = driver.findElements(By.xpath("//input[@type='checkbox' and contains(@value,"+args[5]+")]"));
-//		 List<WebElement> SessionList = driver.findElements(By.xpath("//input[@type='checkbox']"));
-//
-//		 for(WebElement session:SessionList) {		 		
-//		 		String CRN = session.getAttribute("value");
-//		 		if (CRN.contains(args[5])) {
-//		 			System.out.println("session found");
-//		 			session.click();
-//		 		}else {
-//		 			System.out.println("session not found or course is full");
-//		 		}
-//		 				 			 				 		
-//		 }
-//		 
-//		 //click register
-//		 //<input type="submit" name="ADD_BTN" value="Register" />
-//		 WebElement Register = driver.findElement(By.cssSelector("input[type='submit'][value='Register']"));
-//		 Register.click();
-//		 
-//		 System.out.println("done");	
-//		 //driver.quit();
-//		
-//	}
+private static void classSearch(WebDriver driver) {
+
+	//create course object
+	
+	//To check courses, go to Course Catalog. Link is below
+	// https://novasis.villanova.edu/pls/bannerprd/bvckschd.p_disp_dyn_sched
+	// If the chosen course is full or have been selected, it won't through error
+	// the program will hit register button, but nothing will be registered
+	
+	//the 1st course: e.g. CSC 8515 - 001 Machine Learning CRN: 24758 
+	Course course1 = new Course("CSC","8515","24758");
+	
+	//the 2nd course: e.g. CSC 8490 - 001 Database Systems CRN: 22720 
+	Course course2 = new Course("CSC","8490","22720");
+	
+	//the 3rd course: e.g. CSC 8566 - 001 Internet of Things CRN: 22723
+	Course course3 = new Course("CSC","8566","22723");
+	List<Course> myCourseList = new ArrayList<Course>();
+	myCourseList.add(course1);
+	myCourseList.add(course2);
+	myCourseList.add(course3);
+	
+	for(Course myCourse: myCourseList) {
+		WebElement ClassSearch = driver.findElement(By.cssSelector("input[type='submit'][value='Class Search']"));
+		ClassSearch.click();
+				
+		//selecting department e.g. CSC
+		String myDepartment = myCourse.getDepartment();	
+		selectDepartment(driver,myDepartment);
+		
+	    //search for course number and click View Sections    
+		String myCourseNumber = myCourse.getCourseNumber();
+		selectCourseNumber(driver,myCourseNumber);
+			 
+		//Find the CRN for the given course number and hit Register
+		String myCRN = myCourse.getCRN();
+		selectCRN(driver,myCRN);
+	
+
+	}	
+}
+
+private static void selectCRN(WebDriver driver, String myCRN) {
+	 //When session number doesn't exist, it gives all the input tags with checkbox and ignores contains. Don't use it cuz of the wrong output
+	 //List<WebElement> SessionList = driver.findElements(By.xpath("//input[@type='checkbox' and contains(@value,"+args[5]+")]"));
+	 List<WebElement> SessionList = driver.findElements(By.xpath("//input[@type='checkbox']"));
+
+	 for(WebElement session:SessionList) {		 		
+	 		String CRN = session.getAttribute("value");
+	 		if (CRN.contains(myCRN)) {
+	 			System.out.println("session found: Registering");
+	 			session.click();
+	 		}else {
+	 			System.out.println("session not found or course is full");
+	 		}
+	 				 			 				 		
+	 }
+	 
+	 //click register
+	 //<input type="submit" name="ADD_BTN" value="Register" />
+	 WebElement Register = driver.findElement(By.cssSelector("input[type='submit'][value='Register']"));
+	 //delay(3);
+	 Register.click();		 
+	 System.out.println("done");	
+			
+}
+
+
+private static void selectCourseNumber(WebDriver driver, String myCourseNumber) {
+	List<WebElement> CourseList = driver.findElements(By.cssSelector("input[name=\"SEL_CRSE\"]"));
+	List<WebElement> SubmitList = driver.findElements(By.cssSelector("input[NAME=\"SUB_BTN\"][VALUE=\"View Sections\"]"));
+	 
+	 int index = 0;
+	 for(WebElement course:CourseList) {		 		
+	 		String courseNumber = course.getAttribute("value");
+	 		if (!courseNumber.isEmpty() ) {
+		 		//System.out.println(courseNumber);
+		 		//course number: args[4]  
+		 		if (courseNumber.compareTo(myCourseNumber) == 0) {
+		 			System.out.println("course found");
+		 			//hit View Sections
+		 			SubmitList.get(index).click();
+		 			break;
+		 		};
+		 		index++;
+	 		}	 				 		
+	 }
+	
+}
+
+private static void selectDepartment(WebDriver driver, String department) {
+	
+    Select DepartmentOptions = new Select(driver.findElement(By.cssSelector("select[name='sel_subj']"))); 
+    DepartmentOptions.selectByValue(department);
+    WebElement SubmitDepartment = driver.findElement(By.cssSelector("input[type='submit'][value='Course Search']"));
+    SubmitDepartment.click();
+	
+}
 
 private static void checkPIN(WebDriver driver) {
 	 
