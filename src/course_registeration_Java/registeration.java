@@ -1,25 +1,57 @@
 package course_registeration_Java;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.*;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
 
 
 public class registeration {
 	static int delay_count = 0;
 	
 	public static void main(String[] args) throws InterruptedException{
+		// timer was referred to
+		// https://stackoverflow.com/questions/36564001/run-java-program-at-exact-times-repeatedly-using-scheduledexecutorservice
+	    Timer timer = new Timer();
+	    TimerTask myTimerTask = new SchedulerTask(args);
+	    DateFormat df = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
+	    Date triggerTime = null;
+	    try {
+	        triggerTime = df.parse("2020-07-31 21:50:00");
+	    } catch (ParseException e) {
+	        e.printStackTrace();
+	    }
+	    timer.schedule(myTimerTask, triggerTime, 3600*1000);
 		
-        long startTime = System.currentTimeMillis();
+}
+	
+	static class SchedulerTask extends TimerTask {
+		String[] args;
+		public SchedulerTask(String[] args) {
+			this.args = args;
+		}
+
+		@Override
+	    public void run() {
+	        System.out.println("I am running at " + Calendar.getInstance().getTime());
+	   
+	        initiateApplication(args);
+	    }
+}
+
+	private static void initiateApplication(String[] args) {
+		long startTime = System.currentTimeMillis();
         
         Login login = new Login(args[1], args[2]);
 		MyWebdriver mywebdriver = new MyWebdriver(args[0]);
@@ -38,7 +70,6 @@ public class registeration {
 		
         System.out.println("Execution time in milliseconds: (without delay)" + (timeElapsed - delayMillisec));
 		
-			
 	}
 
 	private static void registerForClasses(Login login, WebDriver driver) {
