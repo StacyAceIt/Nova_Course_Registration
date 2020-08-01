@@ -33,7 +33,10 @@ Note: Can use an already registered or closed course for testing, then there is 
      2) select Student & Financial Aid tag
      3) select Registration
      
-     Shortcut login starts from here (The link for shortcut login may not work 100% of time. The application will automatically choose Shortcut/Detour login. If none of the two is accessible, it will wait for 30 seconds and try to login again)
+     Shortcut login starts from here (The link for shortcut login may not work 100% of time. 
+     The application will automatically choose Shortcut/Detour login. 
+     If none of the two is accessible, it will wait for 30 seconds and try to login again)
+     
      4) Login to Registration -> might need to fill PIN
      5) select semester (arg[3])
      6) class search
@@ -41,3 +44,11 @@ Note: Can use an already registered or closed course for testing, then there is 
      8) select course with course number arg[4] -> view options
      9) find the CRN, click check box and register (arg[5] CRN)
      program goes back to step 6 when there is another class to register
+     
+8. Performance:
+    1 class registration: about 6 seconds
+    2 classes registration: about 8 seconds
+    3 classes registration: about 10-13 seconds
+
+9. Further contribution:
+   If you can improve the speed
