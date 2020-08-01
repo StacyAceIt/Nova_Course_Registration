@@ -279,8 +279,8 @@ private static void classSearch(WebDriver driver) {
 		selectDepartment(driver,myDepartment);
 		
 	    //search for course number and click View Sections    
-		String myCourseNumber = myCourse.getCourseNumber();
-		selectCourseNumber(driver,myCourseNumber);
+//		String myCourseNumber = myCourse.getCourseNumber();
+//		selectCourseNumber(driver,myCourseNumber);
 			 
 		//Find the CRN for the given course number and hit Register
 		String myCRN = myCourse.getCRN();
@@ -292,57 +292,34 @@ private static void classSearch(WebDriver driver) {
 
 private static void selectCRN(WebDriver driver, String myCRN) {
 	 //When session number doesn't exist, it gives all the input tags with checkbox and ignores contains. Don't use it cuz of the wrong output
-	 //List<WebElement> SessionList = driver.findElements(By.xpath("//input[@type='checkbox' and contains(@value,"+args[5]+")]"));
-	 List<WebElement> SessionList = driver.findElements(By.xpath("//input[@type='checkbox']"));
-
-	 for(WebElement session:SessionList) {		 		
-	 		String CRN = session.getAttribute("value");
-	 		if (CRN.contains(myCRN)) {
-	 			System.out.println("session found: Registering");
-	 			session.click();
-	 		}else {
-	 			System.out.println("session not found or course is full");
-	 		}
-	 				 			 				 		
-	 }
 	 
+	try {
+		WebElement mySession = driver.findElement(By.xpath("//input[@type='checkbox' and contains(@value,"+myCRN+")]"));
+		System.out.println("Course found: Registering");
+		mySession.click();
+	}catch(NoSuchElementException e){
+		System.out.println("Course has been selected or is full");
+	}
+	
 	 //click register
 	 //<input type="submit" name="ADD_BTN" value="Register" />
 	 WebElement Register = driver.findElement(By.cssSelector("input[type='submit'][value='Register']"));
-	 //delay(3);
+
 	 Register.click();		 
 	 System.out.println("done");	
 			
 }
 
-
-private static void selectCourseNumber(WebDriver driver, String myCourseNumber) {
-	List<WebElement> CourseList = driver.findElements(By.cssSelector("input[name=\"SEL_CRSE\"]"));
-	List<WebElement> SubmitList = driver.findElements(By.cssSelector("input[NAME=\"SUB_BTN\"][VALUE=\"View Sections\"]"));
-	 
-	 int index = 0;
-	 for(WebElement course:CourseList) {		 		
-	 		String courseNumber = course.getAttribute("value");
-	 		if (!courseNumber.isEmpty() ) {
-
-		 		if (courseNumber.compareTo(myCourseNumber) == 0) {
-		 			System.out.println("course found");
-		 			//hit View Sections
-		 			SubmitList.get(index).click();
-		 			break;
-		 		};
-		 		index++;
-	 		}	 				 		
-	 }
-	
-}
-
 private static void selectDepartment(WebDriver driver, String department) {
 	
-    Select DepartmentOptions = new Select(driver.findElement(By.cssSelector("select[name='sel_subj']"))); 
-    DepartmentOptions.selectByValue(department);
-    WebElement SubmitDepartment = driver.findElement(By.cssSelector("input[type='submit'][value='Course Search']"));
-    SubmitDepartment.click();
+    WebElement AdvancedSearch = driver.findElement(By.cssSelector("input[type='submit'][value='Advanced Search']"));
+    AdvancedSearch.click();
+    
+    Select ChooseDepartment = new Select(driver.findElement(By.cssSelector("select[name='sel_subj']"))); 
+    ChooseDepartment.selectByValue(department);
+    
+    WebElement SectionSearch = driver.findElement(By.cssSelector("input[type='submit'][value='Section Search']"));
+    SectionSearch.click();
 	
 }
 
