@@ -46,9 +46,9 @@ Note: Can use an already registered or closed course for testing, then there is 
      program goes back to step 6 when there is another class to register
      
 8. Performance:
-    1) class registration: about 6 seconds
-    2) classes registration: about 8 seconds
-    3) classes registration: about 10-13 seconds
+    1) 1 class registration: about 6 seconds
+    2) 2 classes registration: about 8 seconds
+    3) 3 classes registration: about 10-13 seconds
 
 9. Further contribution:
    If you can improve the speed
