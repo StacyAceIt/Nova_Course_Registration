@@ -1,11 +1,11 @@
 package course_registeration_Java;
 
 class MyWebdriver {
-	private final String path = "/Users/stacyzhang/eclipse-workspace/course_registeration_Java/chromedriver";
+	String path;
 
 	
-	MyWebdriver(){
-		
+	MyWebdriver(String _path){
+		this.path = _path;
 	}
 	
 	String getPath() {

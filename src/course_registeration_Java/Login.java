@@ -1,11 +1,12 @@
 package course_registeration_Java;
 
 class Login {
-	private final String username = "tzhang8";
-	private final String password = "Woo1382073196?";
+	private String username;
+	private String password;
 	
-	Login(){
-		
+	Login(String _username, String _password){
+		this.username = _username;
+		this.password = _password;
 	}
 	
 	String getUsername() {
