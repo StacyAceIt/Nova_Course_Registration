@@ -15,6 +15,7 @@
     7) Registeration Class (Main Class) classSearch method: Line 261-261 set department e.g. CSC
     8) Registeration Class (Main Class) main method: around Line 31: set timer to run application
     9) PIN class: set PIN
+    10) Line 28: set date and time to run the application
 
 Example course: CSC 8566 - 001 Internet of Things CRN: 22723
 
