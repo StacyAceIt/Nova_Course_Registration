@@ -33,7 +33,7 @@ public class registeration {
         DateFormat df = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
         Date triggerTime = null;
         try {
-            triggerTime = df.parse("2020-07-31 21:50:00");
+            triggerTime = df.parse("2020-11-11 09:00:00");
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -269,7 +269,7 @@ public class registeration {
         Course course2 = new Course("STAT","8480","33914");
 
         //the 3rd course: e.g. CSC 8566 - 001 Internet of Things CRN: 22723
-        Course course3 = new Course("CSC","8566","22723");
+        Course course3 = new Course("CSC","9010","32167");
         List<Course> myCourseList = new ArrayList<Course>();
         myCourseList.add(course1);
         myCourseList.add(course2);
