@@ -1,13 +1,13 @@
 package course_registeration_Java;
 
 class PIN {
-	private final String value = "fa12345";
-	
-	PIN(){
-		
-	}
+    private final String value = "sp3313";
 
-	public String getValue() {
-		return this.value;
-	}
+    PIN(){
+
+    }
+
+    public String getValue() {
+        return this.value;
+    }
 }
