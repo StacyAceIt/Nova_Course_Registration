@@ -323,7 +323,7 @@ public class registeration {
         Select ChooseDepartment = new Select(driver.findElement(By.cssSelector("select[name='sel_subj']")));
         ChooseDepartment.selectByValue(department);
 
-        WebElement SectionSearch = driver.findElement(By.cssSelector("input[type='submit'][value='Section Search']"));
+        WebElement SectionSearch = driver.findElement(By.cssSelector("input[type='submit'][value='Class Search']"));
         SectionSearch.click();
 
     }
